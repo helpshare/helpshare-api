@@ -1,0 +1,13 @@
+.DS_Store
+.bin
+.git
+.gitignore
+.bundleignore
+.bundle
+.rspec
+tmp
+log
+test
+node_modules
+yarn-error.log
+coverage/
