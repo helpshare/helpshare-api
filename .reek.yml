@@ -130,4 +130,4 @@
 
   exclude_paths:
     - db/migrate
-    - vendor/bundle/**/*
+    - vendor
