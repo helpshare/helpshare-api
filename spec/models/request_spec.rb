@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Request, type: :model do
   context 'without a phone number' do
-    it 'does not save a record' do
+    it 'does not save a record', :aggregate_failures do
       request = described_class.new(phone_number: '', message_content: 'Groceries')
 
       expect { request.save }.not_to change(described_class, :count)
@@ -13,7 +13,7 @@ RSpec.describe Request, type: :model do
   end
 
   context 'without a message content' do
-    it 'does not save a record' do
+    it 'does not save a record', :aggregate_failures do
       request = described_class.new(phone_number: '123456789', message_content: '')
 
       expect { request.save }.not_to change(described_class, :count)
@@ -21,8 +21,8 @@ RSpec.describe Request, type: :model do
     end
   end
 
-  context 'valid phone number and mesage content' do
-    it 'saves a record' do
+  context 'with valid phone number and mesage content' do
+    it 'saves a record', :aggregate_failures do
       request = described_class.new(phone_number: '123456789', message_content: 'Pharmacy')
 
       expect { request.save }.to change(described_class, :count).from(0).to(1)
