@@ -1,4 +1,4 @@
-require: 
+require:
   - rubocop-rails
   - rubocop-performance
   - rubocop-rspec
@@ -12,6 +12,7 @@ AllCops:
     - 'script/**/*'
     - 'bin/{rails,rake}'
     - !ruby/regexp /old_and_unused\.rb$/
+    - vendor/bundle/**/*
 
 Bundler/OrderedGems:
   Enabled: false

@@ -127,3 +127,7 @@
       enabled: true
       exclude: []
       public_methods_only: false
+
+  exclude_paths:
+    - db/migrate
+    - vendor
