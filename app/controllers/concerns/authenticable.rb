@@ -2,4 +2,3 @@
 
 module Authenticable
 end
-
