@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
-  include Authenticable
-
-  before_action :authenticate_user
+  include Knock::Authenticable
 end
