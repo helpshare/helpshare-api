@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::API
   include Knock::Authenticable
+  include ErrorsHandler
 
   before_action :authenticate_user
 
