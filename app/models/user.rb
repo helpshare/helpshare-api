@@ -5,4 +5,3 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: { case_senstive: false }
 end
-

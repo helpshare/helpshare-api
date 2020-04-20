@@ -13,7 +13,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'jwt'
 gem 'fast_jsonapi', '~> 1.6.0', git: 'https://github.com/fast-jsonapi/fast_jsonapi'
 gem 'knock'
-gem "factory_bot_rails"
+gem 'factory_bot_rails'
 
 group :development, :test do
   gem 'pry'
