@@ -3,8 +3,14 @@
 module ErrorsHandler
   extend ActiveSupport::Concern
 
+  Errors = [
+    StandardError,
+    API::Errors,
+    ActiveRecord::RecordInvalid
+  ]
+
   included do
-    rescue_from(StandardError, with: handle_errors)
+    rescue_from(*Errors, with: binding.pry)
   end
 
   def handle_errors
