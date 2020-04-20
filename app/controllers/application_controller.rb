@@ -6,6 +6,10 @@ class ApplicationController < ActionController::API
 
   before_action :authenticate_user
 
+  def foobar
+    binding.pry
+  end
+
   private
 
   def unauthorized_entity
