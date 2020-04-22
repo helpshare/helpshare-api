@@ -10,10 +10,10 @@ module ErrorsHandler
   ]
 
   included do
-    rescue_from(*API_Errors, with: handle_errors) 
+    rescue_from(*API_Errors, with: :handle_errors)
   end
 
-  def handle_errors
-    binding.pry
+  def handle_errors(e)
+    render json: { errors: e.message }
   end
 end
