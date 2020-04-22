@@ -1,14 +1,10 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
-  include Knock::Authenticable
   include ErrorsHandler
+  include Authenticable
 
   before_action :authenticate_user
-
-  def foobar
-    binding.pry
-  end
 
   private
 

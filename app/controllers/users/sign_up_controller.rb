@@ -3,7 +3,6 @@
 module Users
   class SignUpController < ApplicationController
     def create
-      binding.pry
       user = User.create!(user_params)
       render json: UserSerializer.new(user).serialized_json
     end
