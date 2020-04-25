@@ -3,21 +3,20 @@
 module Users
   class LoginController < ApplicationController
     def create
-      user = User.find_by!(email: params[:email])
-      user.authenticate(params[:password])
+      raise DefinedErrors::DefinedError unless user
 
-      binding.pry
-      if user
-        render json: { token: encode_auth_token(id: user.id) }
-      else
-        render json: {}, head: :unauthenticated
-      end
+      render json: { auth_token: encode_auth_token(id: user.id) }
     end
 
     private
 
     def login_params
       params.permit(:email, :password)
+    end
+
+    def user
+      user = User.find_by!(email: params[:email])
+      user.authenticate(params[:password])
     end
   end
 end
