@@ -3,7 +3,7 @@
 module Users
   class LoginController < ApplicationController
     def create
-      raise DefinedErrors::DefinedError unless user
+      raise HelpshareErrors::Unauthenticated unless user
 
       render json: { auth_token: encode_auth_token(id: user.id) }
     end
