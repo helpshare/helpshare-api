@@ -8,7 +8,7 @@ module HelpshareErrors
   ErrorStruct = Struct.new(:message_key, :status)
 
   ERRORS = {
-    Unauthenticated => :unauthenticated
+    Unauthenticated => :unauthenticated,
   }
 
   ERRORS_MESSAGES = YAML.load(File.read('config/errors.yml')).dig('errors')
