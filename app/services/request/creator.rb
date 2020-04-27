@@ -17,9 +17,12 @@ class Request
       @voice_request = params['CallSid'].present?
       @error = ''
       @message = ''
+      perform_validation
     end
 
     def persist
+      return false if @error.present?
+
       if request.save
         @message = twilio_response.to_s
       else
@@ -33,20 +36,30 @@ class Request
 
     attr_reader :params, :voice_request
 
+    def perform_validation
+      add_double_id_error
+    end
+
+    def add_double_id_error
+      return unless params['CallSid'].present? && params['SmsMessageSid'].present?
+
+      @error += 'Both Call ID and Message ID were specified.'
+    end
+
     def request
-      @request ||= Request.new(prepared_params)
+      @request ||= Request.new(prepared_params.merge(reception_type: reception_type))
     end
 
     def prepared_params
       params.to_h.each_with_object({}) do |(key, value), memo|
         new_key = PARAMS_MAP[key] || key.underscore
-        memo[new_key] = value
+        memo[new_key] = value if value.present?
         memo
       end
     end
 
     def reception_type
-      voice_request? ? REQUEST_ENUMS[:voice] : REQUEST_ENUMS[:sms]
+      voice_request ? REQUEST_ENUMS[:voice] : REQUEST_ENUMS[:sms]
     end
 
     def twilio_response
