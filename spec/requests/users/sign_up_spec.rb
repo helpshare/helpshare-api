@@ -18,7 +18,7 @@ describe 'POST /users/sign_up', type: :request do
   context 'with valid credentials' do
     let(:credentials) { { email: email, password: password } }
 
-    it 'creates user and returns 200' do
+    it 'creates user and returns 200', :aggregate_failures do
       expect(response.status).to eq(200)
       expect(User.count).to eq(1)
     end
@@ -27,7 +27,7 @@ describe 'POST /users/sign_up', type: :request do
   context 'with invalid credentials' do
     let(:credentials) { { email: email, password: 'i' } }
 
-    it 'does not create user and return 422' do
+    it 'does not create user and return 422', :aggregate_failures do
       expect(response.status).to eq(422)
       expect(User.count).to eq(0)
     end

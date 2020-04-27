@@ -14,4 +14,12 @@ describe User, type: :model do
       expect { user.save! } .to raise_error(ActiveRecord::RecordInvalid)
     end
   end
+
+  describe '#password' do
+    let(:user) { build(:user, password: 'a') }
+
+    it 'must be at least 6 characters length' do
+      expect { user.save! }.to raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
 end
