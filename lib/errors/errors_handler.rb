@@ -11,12 +11,12 @@ module Errors
       rescue_from(ActiveRecord::RecordInvalid, with: :handle_ar_errors)
     end
 
-    def handle_errors(err)
-      render json: ErrorSerializer.new(err).serialized_json
+    def handle_custom_errors(err)
+      render json: ErrorSerializer.new(err).serialized_json, status: err.status
     end
 
     def handle_ar_errors(err)
-      render json: { errors: err.record.errors.full_messages }
+      render json: { errors: err.record.errors.full_messages }, status: 422
     end
   end
 end

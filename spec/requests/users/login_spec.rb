@@ -30,10 +30,11 @@ describe 'POST /users/login', type: :request do
   context 'with invalid credentials' do
     let(:credentials) { { email: user.email, password: 'invalid' } }
 
-    it 'returns error' do
-      errors = parsed_body.dig('data', 'errors')
+    it 'returns an error' do
+      error_message = parsed_body.dig('data', 'attributes', 'message')
+      expected_error_message = HelpshareErrors::Unauthenticated.new.message
 
-      expect(errors).to include('Invalid password or email')
+      expect(error_message).to eq(expected_error_message)
     end
   end
 end
