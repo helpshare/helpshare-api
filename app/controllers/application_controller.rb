@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
-  include Errors::ErrorHandler
+  include Errors::ErrorsHandler
   include Authenticable
 
   private
