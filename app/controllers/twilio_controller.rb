@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TwilioController < ApplicationController
-  def sms
+  def create
     if request_creator.persist
       render xml: request_creator.message, status: :created
     else
@@ -13,7 +13,7 @@ class TwilioController < ApplicationController
 
   def twilio_params
     params.permit(
-      'SmsMessageSid', 'From', 'Body', 'FromCountry', 'FromState', 'FromCity'
+      'SmsMessageSid', 'CallSid', 'From', 'Body', 'FromCountry', 'FromState', 'FromCity'
     )
   end
 

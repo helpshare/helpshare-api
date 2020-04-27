@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe TwilioController, type: :controller do
-  describe 'GET #sms' do
+  describe 'POST #create' do
     let(:params) do
       {
         'SmsMessageSid': 123,
@@ -19,7 +19,7 @@ RSpec.describe TwilioController, type: :controller do
       let(:from) { '+48123456789' }
 
       it 'returns http success', :aggregate_failures do
-        expect { post :sms, params: params }.to change(Request, :count).from(0).to(1)
+        expect { post :create, params: params }.to change(Request, :count).from(0).to(1)
         expect(response).to have_http_status(:created)
         expect(response.body).to include('?xml version')
         expect(response.body).to include(
@@ -32,7 +32,7 @@ RSpec.describe TwilioController, type: :controller do
       let(:from) { '' }
 
       it 'returns http success', :aggregate_failures do
-        expect { post :sms, params: params }.not_to change(Request, :count)
+        expect { post :create, params: params }.not_to change(Request, :count)
         expect(response).to have_http_status(:bad_request)
         expect(response.body).to include('?xml version')
         expect(response.body).to include("Phone number can't be blank")

@@ -4,5 +4,6 @@ class AddIdAndLocationFieldsToRequests < ActiveRecord::Migration[6.0]
     add_column :requests, :from_country, :string
     add_column :requests, :from_state, :string
     add_column :requests, :from_city, :string
+    add_column :requests, :reception_type, :integer, default: 0, null: false
   end
 end

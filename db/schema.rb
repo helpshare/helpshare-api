@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2020_04_20_200513) do
     t.string "from_country"
     t.string "from_state"
     t.string "from_city"
+    t.integer "reception_type", default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|

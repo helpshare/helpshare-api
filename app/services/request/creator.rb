@@ -2,8 +2,10 @@
 
 class Request
   class Creator
+    REQUEST_ENUMS = { sms: 0, voice: 1 }.freeze
     PARAMS_MAP = {
       'SmsMessageSid' => :outer_service_id,
+      'CallSid' => :outer_service_id,
       'From' => :phone_number,
       'Body' => :message_content
     }.freeze
@@ -12,6 +14,7 @@ class Request
 
     def initialize(params:)
       @params = params
+      @voice_request = params['CallSid'].present?
       @error = ''
       @message = ''
     end
@@ -28,7 +31,7 @@ class Request
 
     private
 
-    attr_reader :params
+    attr_reader :params, :voice_request
 
     def request
       @request ||= Request.new(prepared_params)
@@ -42,12 +45,26 @@ class Request
       end
     end
 
+    def reception_type
+      voice_request? ? REQUEST_ENUMS[:voice] : REQUEST_ENUMS[:sms]
+    end
+
     def twilio_response
+      voice_request ? voice_response : sms_response
+    end
+
+    def sms_response
       Twilio::TwiML::MessagingResponse.new do |res|
         res.message(
           body: "We received your request: '#{request.message_content.truncate(10)}'. " \
             'Someone should reach out to you shortly.'
         )
+      end
+    end
+
+    def voice_response
+      Twilio::TwiML::VoiceResponse.new do |res|
+        res.say(body: 'We received your request. Someone should reach out to you shortly.')
       end
     end
   end
