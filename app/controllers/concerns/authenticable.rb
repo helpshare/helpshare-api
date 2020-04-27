@@ -22,6 +22,7 @@ module Authenticable
     JWT.decode(authorization_header, Rails.application.secret_key_base).first
   end
 
+  # :reek:UtilityFunction
   def encode_auth_token(exp: 30.days, entity: User, id:)
     payload = {
       expt: exp,
