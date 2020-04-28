@@ -9,7 +9,7 @@ module Authenticable
     entity_name = entity.to_s.downcase
 
     define_method("#current_#{entity_name}") do
-      instance_variable_get("@current_#{entity}")
+      instance_variable_get("@current_#{entity_name}")
     end
 
     define_method("authenticate_#{entity_name}") do

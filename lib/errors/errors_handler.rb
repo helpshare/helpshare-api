@@ -7,16 +7,15 @@ module Errors
     extend ActiveSupport::Concern
 
     included do
-      rescue_from(*HelpshareErrors::ERRORS.keys, with: :handle_custom_errors)
-      rescue_from(ActiveRecord::RecordInvalid, with: :handle_ar_errors)
+      rescue_from(StandardError, with: :handle_errors)
     end
 
-    def handle_custom_errors(err)
-      render json: ErrorSerializer.new(err).serialized_json, status: err.status
-    end
+    #:reek:FeatureEnvy, :reek:ManualDispatch
+    def handle_errors(err)
+      error = Errors::Formatter.new(err).call
+      status = error.respond_to?(:size) ? error.first.status : error.status
 
-    def handle_ar_errors(err)
-      render json: { errors: err.record.errors.full_messages }, status: 422
+      render json: ErrorSerializer.new(error).serializable_hash, status: status
     end
   end
 end
