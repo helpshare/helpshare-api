@@ -9,6 +9,7 @@ class Request
       'From' => :phone_number,
       'Body' => :message_content
     }.freeze
+    REQUEST_RECEIVED_MESSAGE = 'We received your request. Someone should reach out to you shortly.'
 
     attr_reader :error, :message
 
@@ -66,18 +67,17 @@ class Request
       voice_request ? voice_response : sms_response
     end
 
+    # :reek:UtilityFunction { enabled: false }
     def sms_response
       Twilio::TwiML::MessagingResponse.new do |res|
-        res.message(
-          body: "We received your request: '#{request.message_content.truncate(10)}'. " \
-            'Someone should reach out to you shortly.'
-        )
+        res.message(body: REQUEST_RECEIVED_MESSAGE)
       end
     end
 
+    # :reek:UtilityFunction { enabled: false }
     def voice_response
       Twilio::TwiML::VoiceResponse.new do |res|
-        res.say(body: 'We received your request. Someone should reach out to you shortly.')
+        res.say(body: REQUEST_RECEIVED_MESSAGE)
       end
     end
   end

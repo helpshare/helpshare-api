@@ -29,7 +29,7 @@ RSpec.describe TwilioController, type: :controller do
           expect(response).to have_http_status(:created)
           expect(response.body).to include('?xml version')
           expect(response.body).to include(
-            "We received your request: 'I need ...'. Someone should reach out to you shortly."
+            'We received your request. Someone should reach out to you shortly.'
           )
         end
       end

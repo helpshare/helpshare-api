@@ -28,7 +28,7 @@ RSpec.describe Request::Creator do
 
         it 'saves a Request to database and returns a message', :aggregate_failures do
           expect { request_creator.persist }.to change(Request, :count).from(0).to(1)
-          expect(request_creator.message).to include('I need ...')
+          expect(request_creator.message).to include('We received your request.')
           expect(request_creator.error).to eq('')
         end
       end
