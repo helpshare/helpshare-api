@@ -47,3 +47,9 @@ Layout/ClassStructure:
       - public_methods
       - protected_methods
       - private_methods
+
+RSpec/ExampleLength:
+  Max: 10
+
+RSpec/NestedGroups:
+  Max: 4
