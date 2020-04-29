@@ -14,6 +14,7 @@ gem 'jwt'
 gem 'fast_jsonapi', '~> 1.6.0', git: 'https://github.com/fast-jsonapi/fast_jsonapi'
 gem 'factory_bot_rails'
 gem 'bcrypt'
+gem 'twilio-ruby'
 
 group :development, :test do
   gem 'pry-rails'

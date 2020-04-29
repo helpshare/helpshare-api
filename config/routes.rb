@@ -6,5 +6,6 @@ Rails.application.routes.draw do
       resources :login, only: %i[create]
       resources :sign_up, only: %i[create]
     end
+    post 'twilio', to: 'twilio#create'
   end
 end
