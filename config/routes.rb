@@ -1,5 +1,11 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  post 'twilio', to: 'twilio#create'
-  devise_for :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  scope :api do
+    namespace :users do
+      resources :login, only: %i[create]
+      resources :sign_up, only: %i[create]
+    end
+    post 'twilio', to: 'twilio#create'
+  end
 end
