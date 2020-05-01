@@ -15,8 +15,10 @@ gem 'fast_jsonapi', '~> 1.6.0', git: 'https://github.com/fast-jsonapi/fast_jsona
 gem 'factory_bot_rails'
 gem 'bcrypt'
 gem 'twilio-ruby'
+gem 'config'
 
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 4.0.0'
   gem 'rubocop'

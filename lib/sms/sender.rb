@@ -2,7 +2,14 @@
 
 module Sms
   class Sender
-    def initialize(from:, to:, message:, client: Twilio::REST::Client)
+    TWILIO_SETTINGS = Settings.twilio
+
+    def initialize(
+      from: TWILIO_SETTINGS['phone_number'],
+      to:,
+      message:,
+      client: Twilio::REST::Client
+    )
       @from = from
       @to = to
       @message = message
@@ -10,7 +17,10 @@ module Sms
     end
 
     def call
-      client.new(account_sid, auth_token).messages.create(
+      client.new(
+        TWILIO_SETTINGS['account_sid'],
+        TWILIO_SETTINGS['auth_token']
+      ).messages.create(
         from: from,
         to: to,
         body: message
@@ -20,13 +30,5 @@ module Sms
     private
 
     attr_reader :from, :to, :message, :client
-
-    def account_sid
-      ENV['ACCOUNT_SID']
-    end
-
-    def auth_token
-      ENV['AUTH_TOKEN']
-    end
   end
 end

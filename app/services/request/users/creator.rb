@@ -13,5 +13,16 @@ module Users
     private
 
     attr_reader :params
+
+    def unique_token
+      SecureRandom.hex(4)
+    end
+
+    def send_sms_conirmation_token
+      Sms::Sender.new(
+        to: user.phone_number,
+        message: "Your registration token is: #{unique_token}"
+      ).call
+    end
   end
 end
