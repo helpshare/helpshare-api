@@ -16,9 +16,11 @@ gem 'factory_bot_rails'
 gem 'bcrypt'
 gem 'twilio-ruby'
 gem 'config'
+gem 'phonelib'
 
 group :development, :test do
   gem 'dotenv-rails'
+  gem 'faker'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 4.0.0'
   gem 'rubocop'

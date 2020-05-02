@@ -6,4 +6,5 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: { case_senstive: false }
   validates :password, length: { minimum: 6 }
   validates :registration_token, uniqueness: true, allow_nil: true
+  validates :phone_number, phone: true
 end

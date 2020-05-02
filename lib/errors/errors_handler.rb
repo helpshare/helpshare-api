@@ -14,7 +14,7 @@ module Errors
     def handle_errors(err)
       error = Errors::Formatter.new(err).call
 
-      render json: ErrorSerializer.new(error).serializable_hash, status: 422
+      render json: ErrorSerializer.new(error).serializable_hash, status: error.try(:status) || 422
     end
   end
 end

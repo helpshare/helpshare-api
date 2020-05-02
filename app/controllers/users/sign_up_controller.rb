@@ -10,7 +10,7 @@ module Users
     private
 
     def user_params
-      params.permit(:email, :password)
+      params.permit(:email, :password, :phone_number)
     end
   end
 end

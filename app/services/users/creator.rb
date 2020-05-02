@@ -7,9 +7,11 @@ module Users
     end
 
     def call
-      user = User.create!(params)
-      RegistrationTokenCreator.new(user: user).call
-      user
+      ActiveRecord::Base.transaction do
+        user = User.create!(params)
+        RegistrationTokenCreator.new(user: user).call
+        user
+      end
     end
 
     private

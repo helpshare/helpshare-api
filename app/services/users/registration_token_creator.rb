@@ -7,8 +7,8 @@ module Users
     end
 
     def call
-      user.update!(registration_token: token)
-      user.send_sms_conirmation_token
+      user.update!(registration_token: token, registration_token_created_at: Time.zone.now)
+      send_sms_conirmation_token
     end
 
     private
