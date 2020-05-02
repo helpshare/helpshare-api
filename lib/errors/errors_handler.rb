@@ -13,9 +13,8 @@ module Errors
     #:reek:FeatureEnvy, :reek:ManualDispatch
     def handle_errors(err)
       error = Errors::Formatter.new(err).call
-      status = error.respond_to?(:size) ? error.first.status : error.status
 
-      render json: ErrorSerializer.new(error).serializable_hash, status: status
+      render json: ErrorSerializer.new(error).serializable_hash, status: 422
     end
   end
 end

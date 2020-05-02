@@ -3,7 +3,7 @@
 module Users
   class SignUpController < ApplicationController
     def create
-      user = UserCreator.new(params: user_params).call
+      user = Users::Creator.new(params: user_params).call
       render json: UserSerializer.new(user).serialized_json
     end
 

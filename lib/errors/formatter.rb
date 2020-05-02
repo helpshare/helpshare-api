@@ -17,6 +17,8 @@ module Errors
         error.record.errors.full_messages.map do |msg|
           ErrorStruct.new(message: msg, status: 422, class: error.class)
         end
+      when StandardError
+        ErrorStruct.new(message: error.message, status: 500, class: error.class)
       end
     end
 

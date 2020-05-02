@@ -3,9 +3,13 @@
 class ErrorSerializer
   include FastJsonapi::ObjectSerializer
 
-  set_id do |err, _params|
-    "#{err.class.name}_#{SecureRandom.hex(20)}"
+  set_id do |_err, _params|
+    DateTime.now.to_i.to_s
   end
 
-  attributes :message
+  attributes :message, :kind
+
+  attribute :kind do |obj|
+    obj.class.name
+  end
 end
