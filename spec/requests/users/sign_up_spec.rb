@@ -16,7 +16,7 @@ describe 'POST /users/sign_up', type: :request do
   end
 
   context 'with valid credentials' do
-    let(:credentials) { { email: email, password: password } }
+    let(:credentials) { { email: email, password: password, phone_number: '+48666555444' } }
 
     it 'creates user and returns 200', :aggregate_failures do
       expect(response.status).to eq(200)

@@ -10,7 +10,6 @@ module Errors
       rescue_from(StandardError, with: :handle_errors)
     end
 
-    #:reek:FeatureEnvy, :reek:ManualDispatch
     def handle_errors(err)
       error = Errors::Formatter.new(err).call
 

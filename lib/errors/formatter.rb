@@ -11,20 +11,36 @@ module Errors
     # :reek:ManualDispatch
     def call
       case error
+      when *HelpshareErrors::CUSTOM_ERRORS.keys
+        custom_error
       when ActiveRecord::RecordInvalid
         error.record.errors.full_messages.map do |msg|
           ErrorStruct.new(message: msg, status: 422)
         end
       when Twilio::REST::RestError
-        pretty_error = HelpshareErrors::InternalServerError.new
-        ErrorStruct.new(message: pretty_error.message, status: pretty_error.status)
+        internal_server_error
       else
-        ErrorStruct.new(message: error.message, status: 500)
+        internal_server_error
       end
     end
 
     private
 
     attr_reader :error
+
+    def internal_server_error
+      pretty_error = HelpshareErrors::InternalServerError.new
+      ErrorStruct.new(message: pretty_error.message, status: pretty_error.status)
+    end
+
+    def active_record_errors
+      error.record.errors.full_messages.map do |msg|
+        ErrorStruct.new(message: msg, status: 422)
+      end
+    end
+
+    def custom_error
+      ErrorStruct.new(message: error.message, status: error.status)
+    end
   end
 end

@@ -7,9 +7,5 @@ class ErrorSerializer
     DateTime.now.to_i.to_s
   end
 
-  attributes :message, :kind
-
-  attribute :kind do |obj|
-    obj.class.name
-  end
+  attributes :message
 end
