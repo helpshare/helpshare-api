@@ -9,14 +9,16 @@ describe 'POST /users/sign_up', type: :request do
   let(:url) { '/api/users/sign_up' }
   let(:email) { 'user1@helpshare.com' }
   let(:password) { 'password' }
+  let(:phone_number) { '+48666555444' }
   let(:params) { credentials }
 
   before do
+    request_sms_confirmation_token(token: '1337', recipent_number: phone_number)
     request
   end
 
   context 'with valid credentials' do
-    let(:credentials) { { email: email, password: password, phone_number: '+48666555444' } }
+    let(:credentials) { { email: email, password: password, phone_number: phone_number } }
 
     it 'creates user and returns 200', :aggregate_failures do
       expect(response.status).to eq(200)
