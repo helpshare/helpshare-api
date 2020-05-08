@@ -39,7 +39,6 @@ Style/Documentation:
 Style/RedundantInterpolation:
   Enable: false
 
-
 Layout/ClassStructure:
   Enabled: true
   Categories:
