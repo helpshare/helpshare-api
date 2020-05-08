@@ -13,7 +13,7 @@ describe 'POST /users/sign_up', type: :request do
   let(:params) { credentials }
 
   before do
-    request_sms_confirmation_token(token: '1337', recipent_number: phone_number)
+    request_sms_confirmation_token
     request
   end
 
