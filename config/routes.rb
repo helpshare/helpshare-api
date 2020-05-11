@@ -7,5 +7,6 @@ Rails.application.routes.draw do
       resources :sign_up, only: %i[create]
     end
     post 'twilio', to: 'twilio#create'
+    get 'requests', to: 'requests#index'
   end
 end
