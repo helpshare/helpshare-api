@@ -6,7 +6,10 @@ Rails.application.routes.draw do
       resources :login, only: %i[create]
       resources :sign_up, only: %i[create]
     end
+    scope :requests do
+      get '', to: 'requests#index'
+      post '/:id/claim', to: 'requests#claim'
+    end
     post 'twilio', to: 'twilio#create'
-    get 'requests', to: 'requests#index'
   end
 end

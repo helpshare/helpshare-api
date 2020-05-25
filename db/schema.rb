@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_11_134403) do
+ActiveRecord::Schema.define(version: 2020_05_25_190036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,13 +28,30 @@ ActiveRecord::Schema.define(version: 2020_05_11_134403) do
     t.integer "status", default: 0
   end
 
+  create_table "user_requests", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "request_id", null: false
+    t.datetime "finished_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["request_id"], name: "index_user_requests_on_request_id"
+    t.index ["user_id"], name: "index_user_requests_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "registration_token", limit: 256
+    t.datetime "registration_token_created_at"
+    t.string "phone_number", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
+    t.index ["registration_token"], name: "index_users_on_registration_token", unique: true
   end
 
+  add_foreign_key "user_requests", "requests"
+  add_foreign_key "user_requests", "users"
 end
