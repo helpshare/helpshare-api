@@ -9,7 +9,7 @@ module Errors
     end
 
     # :reek:ManualDispatch
-    def call
+    def call # rubocop:disable Metrics/MethodLength
       case error
       when *HelpshareErrors::CUSTOM_ERRORS.keys
         custom_error
@@ -28,6 +28,7 @@ module Errors
 
     attr_reader :error
 
+    # :reek:UtilityFunction
     def internal_server_error
       pretty_error = HelpshareErrors::InternalServerError.new
       ErrorStruct.new(message: pretty_error.message, status: pretty_error.status)
