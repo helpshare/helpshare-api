@@ -3,7 +3,7 @@
 class ErrorSerializer
   include FastJsonapi::ObjectSerializer
 
-  set_id do |_err, _params|
+  set_id do |err, _params|
     "#{err.class.name}_#{SecureRandom.hex(20)}"
   end
 
