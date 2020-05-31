@@ -2,3 +2,6 @@ errors:
   unauthenticated:
     message: "Invalid email or password"
     status: 422
+  internal_server_error:
+    message: "Something went wrong"
+    status: 500

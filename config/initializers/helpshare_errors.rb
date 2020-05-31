@@ -4,9 +4,11 @@ require 'yaml'
 
 module HelpshareErrors
   class Unauthenticated < StandardError; end
+  class InternalServerError < StandardError; end
 
   CUSTOM_ERRORS = {
-    Unauthenticated => :unauthenticated
+    Unauthenticated => :unauthenticated,
+    InternalServerError => :internal_server_error
   }
 
   ERRORS_MESSAGES = YAML.load(File.read('config/errors.yml')).dig('errors')

@@ -18,7 +18,7 @@ describe 'POST /users/login', type: :request do
   end
 
   context 'with valid credentials' do
-    let(:credentials) { { email: user.email, password: password } }
+    let(:credentials) { { email: user.email, password: password, phone_number: '+48666555444' } }
 
     it 'returns auth token' do
       auth_token = parsed_body.dig('auth_token')
@@ -28,7 +28,7 @@ describe 'POST /users/login', type: :request do
   end
 
   context 'with invalid credentials' do
-    let(:credentials) { { email: user.email, password: 'invalid' } }
+    let(:credentials) { { email: user.email, password: 'invalid', phone_number: '+48666555444' } }
 
     it 'returns an error' do
       error_message = parsed_body.dig('data', 'attributes', 'message')

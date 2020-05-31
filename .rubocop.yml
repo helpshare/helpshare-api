@@ -25,11 +25,18 @@ Metrics/BlockLength:
     - config/**/*
     - spec/**/*
 
+Metrics/MethodLength:
+  Exclude:
+    - spec/**/*
+
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - spec/**/*
 
 Style/Documentation:
+  Enabled: false
+
+Style/RedundantInterpolation:
   Enabled: false
 
 Layout/ClassStructure:

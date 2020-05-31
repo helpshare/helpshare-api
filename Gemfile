@@ -15,8 +15,12 @@ gem 'fast_jsonapi', '~> 1.6.0', git: 'https://github.com/fast-jsonapi/fast_jsona
 gem 'factory_bot_rails'
 gem 'bcrypt'
 gem 'twilio-ruby'
+gem 'config'
+gem 'phonelib'
 
 group :development, :test do
+  gem 'dotenv-rails'
+  gem 'faker'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 4.0.0'
   gem 'rubocop'
@@ -34,6 +38,7 @@ end
 
 group :test do
   gem 'database_cleaner'
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

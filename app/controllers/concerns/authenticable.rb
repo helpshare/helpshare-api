@@ -8,7 +8,7 @@ module Authenticable
   ENTITIES.each do |entity|
     entity_name = entity.to_s.downcase
 
-    define_method("#current_#{entity_name}") do
+    define_method("current_#{entity_name}") do
       instance_variable_get("@current_#{entity_name}")
     end
 
@@ -33,6 +33,6 @@ module Authenticable
   end
 
   def authorization_header
-    @authorization_header ||= headers['Authorization']
+    @authorization_header ||= request.headers['Authorization']
   end
 end

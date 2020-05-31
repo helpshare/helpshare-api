@@ -10,12 +10,12 @@ module Errors
       rescue_from(StandardError, with: :handle_errors)
     end
 
-    #:reek:FeatureEnvy, :reek:ManualDispatch
-    def handle_errors(err)
-      error = Errors::Formatter.new(err).call
-      status = error.respond_to?(:size) ? error.first.status : error.status
+    def handle_errors(error)
+      raise error if Rails.env.development?
 
-      render json: ErrorSerializer.new(error).serializable_hash, status: status
+      error = Errors::Formatter.new(error).call
+
+      render json: ErrorSerializer.new(error).serializable_hash, status: error.status
     end
   end
 end
