@@ -9,14 +9,12 @@ module Errors
     end
 
     # :reek:ManualDispatch
-    def call # rubocop:disable Metrics/MethodLength
+    def call
       case error
       when *HelpshareErrors::CUSTOM_ERRORS.keys
         custom_error
-      when ActiveRecord::RecordInvalid
-        error.record.errors.full_messages.map do |msg|
-          ErrorStruct.new(message: msg, status: 422)
-        end
+      when ActiveRecord::RecordInvalid, ActiveRecord::RecordNotFound
+        active_record_error
       when Twilio::REST::RestError
         internal_server_error
       else
@@ -34,9 +32,13 @@ module Errors
       ErrorStruct.new(message: pretty_error.message, status: pretty_error.status)
     end
 
-    def active_record_errors
-      error.record.errors.full_messages.map do |msg|
-        ErrorStruct.new(message: msg, status: 422)
+    def active_record_error
+      case error
+      when ActiveRecord::RecordInvalid
+        messages = error.record.errors.full_messages.to_s
+        ErrorStruct.new(message: messages, status: 422)
+      when ActiveRecord::RecordNotFound
+        ErrorStruct.new(message: error.message, status: 404)
       end
     end
 
